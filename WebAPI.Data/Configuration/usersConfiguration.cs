@@ -11,7 +11,7 @@ namespace WebAPI.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<users> builder)
         {
-            builder.HasIndex(u => u.email).IsUnique();
+            
         }
     }
 }

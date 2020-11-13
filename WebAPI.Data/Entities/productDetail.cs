@@ -36,6 +36,6 @@ namespace WebAPI.Data.Entities
         
         public virtual ICollection<productPhotos> productPhotos { set; get; }
 
-        public virtual ICollection<rating> Ratings { set; get; }
+        
     }
 }

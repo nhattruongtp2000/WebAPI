@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,8 +38,43 @@ namespace WebAPI.Data.Extensions
             );
             modelBuilder.Entity<products>().HasData(
                 new products() { idProduct = "001", idProductDetail = "1", idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" }
+            );
 
-                ) ;
+
+            // any guid
+            var roleId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
+            var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
+            modelBuilder.Entity<role>().HasData(new role
+            {
+                Id = roleId,
+                Name = "admin",
+                NormalizedName = "admin",
+                Description = "Administrator role"
+            });
+
+            var hasher = new PasswordHasher<users>();
+            modelBuilder.Entity<users>().HasData(new users
+            {
+                Id = adminId,
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "nhattruongtp2000@gmail.com",
+                NormalizedEmail = "nhattruongtp2000@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = hasher.HashPassword(null, "Abcd1234$"),
+                SecurityStamp = string.Empty,
+                birthday=new DateTime(2020,10,12),
+                firstName = "Nguyen",
+                lastName = "Truong",
+                lastLogin=new DateTime(2020,11,13)
+ 
+            });
+
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
+            {
+                RoleId = roleId,
+                UserId = adminId
+            });
         }
     }
 }

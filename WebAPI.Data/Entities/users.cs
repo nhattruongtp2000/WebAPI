@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,29 +9,18 @@ using System.Text;
 namespace WebAPI.Data.Entities
 {
     [Table("users")]
-    public class users
+    public class users:IdentityUser<Guid>
     {
-        [Key]
-        [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string idUser { get; set; }
-        [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string email { get; set; }
-        [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string password { get; set; }
+       
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string firstName { get; set; }
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string lastName { get; set; }
+        [Required]
+        [Column(TypeName = "VARCHAR(200)")]
         public DateTime birthday { get; set; }
-        [Column(TypeName = "VARCHAR(200)")]
-        public string phoneNumber { get; set; }
-        [Column(TypeName = "VARCHAR(200)")]
-        public string address { get; set; }
         [Column(TypeName = "VARCHAR(200)")]
         public string note { get; set; }
         [Column(TypeName = "VARCHAR(200)")]
@@ -40,7 +30,8 @@ namespace WebAPI.Data.Entities
         public DateTime lastLogin { get; set; }
 
         
-        public virtual ICollection<rating> Ratings { set; get; }
+     
+        
 
     }
 }

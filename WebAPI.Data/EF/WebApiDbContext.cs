@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +10,7 @@ using WebAPI.Data.Extensions;
 
 namespace WebAPI.Data.EF
 {
-    public class WebApiDbContext:DbContext
+    public class WebApiDbContext:IdentityDbContext<users,role,Guid>
     {
         public WebApiDbContext(DbContextOptions options) : base(options)
         {
@@ -21,8 +23,17 @@ namespace WebAPI.Data.EF
             //config
             modelBuilder.ApplyConfiguration(new usersConfiguration());
 
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins").HasKey(x => x.UserId);
+
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens").HasKey(x => x.UserId);
+
             //seeding
             modelBuilder.Seed();
+
+
         }
 
         public DbSet<ordersDetails> ordersDetails { get; set; }

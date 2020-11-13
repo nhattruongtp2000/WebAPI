@@ -10,7 +10,7 @@ using WebAPI.Data.EF;
 namespace WebAPI.Data.Migrations
 {
     [DbContext(typeof(WebApiDbContext))]
-    [Migration("20201113033253_initial")]
+    [Migration("20201113045401_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,108 @@ namespace WebAPI.Data.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
+                            RoleId = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc")
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserTokens");
+                });
 
             modelBuilder.Entity("WebAPI.Data.Entities.ordersDetails", b =>
                 {
@@ -55,9 +157,8 @@ namespace WebAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
 
-                    b.Property<string>("idUser")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<Guid>("idUser")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("idOrder");
 
@@ -345,9 +446,6 @@ namespace WebAPI.Data.Migrations
 
             modelBuilder.Entity("WebAPI.Data.Entities.rating", b =>
                 {
-                    b.Property<string>("idUser")
-                        .HasColumnType("VARCHAR(200)");
-
                     b.Property<string>("comment")
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
@@ -356,31 +454,105 @@ namespace WebAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
 
+                    b.Property<Guid>("idUser")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("rate")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("rateDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("idUser");
-
                     b.HasIndex("idProduct");
+
+                    b.HasIndex("idUser");
 
                     b.ToTable("ratings");
                 });
 
+            modelBuilder.Entity("WebAPI.Data.Entities.role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(200)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
+                            ConcurrencyStamp = "7d76b690-7e86-4d00-9920-c52545c3f31b",
+                            Description = "Administrator role",
+                            Name = "admin",
+                            NormalizedName = "admin"
+                        });
+                });
+
             modelBuilder.Entity("WebAPI.Data.Entities.users", b =>
                 {
-                    b.Property<string>("idUser")
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("address")
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("birthday")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("birthday")
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
 
@@ -401,22 +573,34 @@ namespace WebAPI.Data.Migrations
                     b.Property<string>("note")
                         .HasColumnType("VARCHAR(200)");
 
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
-
-                    b.Property<string>("phoneNumber")
-                        .HasColumnType("VARCHAR(200)");
-
                     b.Property<string>("province")
                         .HasColumnType("VARCHAR(200)");
 
-                    b.HasKey("idUser");
-
-                    b.HasIndex("email")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c71b7c00-8f38-4f21-9a9e-0f13bcfe5d20",
+                            Email = "nhattruongtp2000@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "nhattruongtp2000@gmail.com",
+                            NormalizedUserName = "admin",
+                            PasswordHash = "AQAAAAEAACcQAAAAENk5b0tIHDe9Fndjw2kPP8n/m5dbx9tul5PYotxUOm1oR1q1kI5c5O6lPIb1TsUNtw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin",
+                            birthday = "2020-10-12 00:00:00",
+                            firstName = "Nguyen",
+                            lastLogin = new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            lastName = "Truong"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.vouchers", b =>
@@ -531,13 +715,13 @@ namespace WebAPI.Data.Migrations
             modelBuilder.Entity("WebAPI.Data.Entities.rating", b =>
                 {
                     b.HasOne("WebAPI.Data.Entities.productDetail", "ProductDetail")
-                        .WithMany("Ratings")
+                        .WithMany()
                         .HasForeignKey("idProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebAPI.Data.Entities.users", "Users")
-                        .WithMany("Ratings")
+                        .WithMany()
                         .HasForeignKey("idUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -570,8 +754,6 @@ namespace WebAPI.Data.Migrations
             modelBuilder.Entity("WebAPI.Data.Entities.productDetail", b =>
                 {
                     b.Navigation("productPhotos");
-
-                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productSize", b =>
@@ -582,11 +764,6 @@ namespace WebAPI.Data.Migrations
             modelBuilder.Entity("WebAPI.Data.Entities.productTypes", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("WebAPI.Data.Entities.users", b =>
-                {
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

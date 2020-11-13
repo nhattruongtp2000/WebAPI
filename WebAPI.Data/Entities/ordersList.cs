@@ -14,9 +14,8 @@ namespace WebAPI.Data.Entities
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string idOrder { get; set; }
-        [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string idUser { get; set; }
+        
+        public Guid idUser { get; set; }
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string idProduct { get; set; }

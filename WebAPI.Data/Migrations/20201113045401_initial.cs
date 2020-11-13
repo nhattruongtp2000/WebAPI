@@ -102,25 +102,120 @@ namespace WebAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "users",
+                name: "RoleClaims",
                 columns: table => new
                 {
-                    idUser = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    email = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    password = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    firstName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    lastName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    phoneNumber = table.Column<string>(type: "VARCHAR(200)", nullable: true),
-                    address = table.Column<string>(type: "VARCHAR(200)", nullable: true),
-                    note = table.Column<string>(type: "VARCHAR(200)", nullable: true),
-                    province = table.Column<string>(type: "VARCHAR(200)", nullable: true),
-                    interestedIn = table.Column<string>(type: "VARCHAR(200)", nullable: true),
-                    lastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_users", x => x.idUser);
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLogins",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLogins", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    firstName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    lastName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    birthday = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    note = table.Column<string>(type: "VARCHAR(200)", nullable: true),
+                    province = table.Column<string>(type: "VARCHAR(200)", nullable: true),
+                    interestedIn = table.Column<string>(type: "VARCHAR(200)", nullable: true),
+                    lastLogin = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTokens", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,7 +314,7 @@ namespace WebAPI.Data.Migrations
                 name: "ratings",
                 columns: table => new
                 {
-                    idUser = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     comment = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     rateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -227,7 +322,6 @@ namespace WebAPI.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ratings", x => x.idUser);
                     table.ForeignKey(
                         name: "FK_ratings_productDetails_idProduct",
                         column: x => x.idProduct,
@@ -238,7 +332,7 @@ namespace WebAPI.Data.Migrations
                         name: "FK_ratings_users_idUser",
                         column: x => x.idUser,
                         principalTable: "users",
-                        principalColumn: "idUser",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -247,7 +341,7 @@ namespace WebAPI.Data.Migrations
                 columns: table => new
                 {
                     idOrder = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    idUser = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false)
                 },
                 constraints: table =>
@@ -268,9 +362,19 @@ namespace WebAPI.Data.Migrations
                         name: "FK_ordersLists_users_idUser",
                         column: x => x.idUser,
                         principalTable: "users",
-                        principalColumn: "idUser",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "7d76b690-7e86-4d00-9920-c52545c3f31b", "Administrator role", "admin", "admin" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") });
 
             migrationBuilder.InsertData(
                 table: "productBrands",
@@ -325,6 +429,11 @@ namespace WebAPI.Data.Migrations
                     { "1", "Cheap" },
                     { "2", "Expensive" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "users",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "birthday", "firstName", "interestedIn", "lastLogin", "lastName", "note", "province" },
+                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "c71b7c00-8f38-4f21-9a9e-0f13bcfe5d20", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAENk5b0tIHDe9Fndjw2kPP8n/m5dbx9tul5PYotxUOm1oR1q1kI5c5O6lPIb1TsUNtw==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
 
             migrationBuilder.InsertData(
                 table: "products",
@@ -387,10 +496,9 @@ namespace WebAPI.Data.Migrations
                 column: "idProduct");
 
             migrationBuilder.CreateIndex(
-                name: "IX_users_email",
-                table: "users",
-                column: "email",
-                unique: true);
+                name: "IX_ratings_idUser",
+                table: "ratings",
+                column: "idUser");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -403,6 +511,24 @@ namespace WebAPI.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ratings");
+
+            migrationBuilder.DropTable(
+                name: "RoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "UserClaims");
+
+            migrationBuilder.DropTable(
+                name: "UserLogins");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
+                name: "UserTokens");
 
             migrationBuilder.DropTable(
                 name: "vouchers");
