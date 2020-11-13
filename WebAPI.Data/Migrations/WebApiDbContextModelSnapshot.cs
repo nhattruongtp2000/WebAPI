@@ -82,6 +82,20 @@ namespace WebAPI.Data.Migrations
                     b.HasKey("idBrand");
 
                     b.ToTable("productBrands");
+
+                    b.HasData(
+                        new
+                        {
+                            idBrand = "1",
+                            brandDetail = "Logo",
+                            brandName = "Logo"
+                        },
+                        new
+                        {
+                            idBrand = "2",
+                            brandDetail = "Company",
+                            brandName = "Company"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productCategories", b =>
@@ -96,6 +110,18 @@ namespace WebAPI.Data.Migrations
                     b.HasKey("idCategory");
 
                     b.ToTable("productCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            idCategory = "1",
+                            categoryName = "Shoes"
+                        },
+                        new
+                        {
+                            idCategory = "2",
+                            categoryName = "Shirt"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productColor", b =>
@@ -110,6 +136,18 @@ namespace WebAPI.Data.Migrations
                     b.HasKey("idColor");
 
                     b.ToTable("productColors");
+
+                    b.HasData(
+                        new
+                        {
+                            idColor = "ffffff",
+                            colorName = "While"
+                        },
+                        new
+                        {
+                            idColor = "Red",
+                            colorName = "Red"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productDetail", b =>
@@ -145,6 +183,30 @@ namespace WebAPI.Data.Migrations
                     b.HasKey("idProductDetail");
 
                     b.ToTable("productDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            idProductDetail = "1",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = 0,
+                            photoReview = "yes",
+                            price = "1000000",
+                            salePrice = "1000000"
+                        },
+                        new
+                        {
+                            idProductDetail = "2",
+                            dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            detail = "goood product",
+                            expiredSalingDate = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            isSaling = 1,
+                            photoReview = "yes",
+                            price = "2000000",
+                            salePrice = "1000000"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productPhotos", b =>
@@ -176,6 +238,18 @@ namespace WebAPI.Data.Migrations
                     b.HasKey("idSize");
 
                     b.ToTable("productSizes");
+
+                    b.HasData(
+                        new
+                        {
+                            idSize = "1",
+                            sizeName = "L"
+                        },
+                        new
+                        {
+                            idSize = "2",
+                            sizeName = "M"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.productTypes", b =>
@@ -190,6 +264,18 @@ namespace WebAPI.Data.Migrations
                     b.HasKey("idType");
 
                     b.ToTable("productTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            idType = "1",
+                            typeName = "Cheap"
+                        },
+                        new
+                        {
+                            idType = "2",
+                            typeName = "Expensive"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.products", b =>
@@ -241,6 +327,18 @@ namespace WebAPI.Data.Migrations
                     b.HasIndex("ordersDetailsidOrder");
 
                     b.ToTable("products");
+
+                    b.HasData(
+                        new
+                        {
+                            idProduct = "001",
+                            idBrand = "1",
+                            idCategory = "1",
+                            idColor = "ffffff",
+                            idProductDetail = "1",
+                            idSize = "1",
+                            idType = "1"
+                        });
                 });
 
             modelBuilder.Entity("WebAPI.Data.Entities.rating", b =>
@@ -312,6 +410,9 @@ namespace WebAPI.Data.Migrations
                         .HasColumnType("VARCHAR(200)");
 
                     b.HasKey("idUser");
+
+                    b.HasIndex("email")
+                        .IsUnique();
 
                     b.ToTable("users");
                 });

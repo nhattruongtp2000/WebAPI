@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using WebAPI.Data.Enums;
 
 namespace WebAPI.Data.Entities
 {
@@ -15,10 +17,10 @@ namespace WebAPI.Data.Entities
         public string idProductDetail           {get;set;}
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
-        public string price                     {get;set;}
+        public decimal   price                     {get;set;}
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
-        public string salePrice                 {get;set;}
+        public decimal salePrice                 {get;set;}
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string photoReview               {get;set;}
@@ -26,7 +28,7 @@ namespace WebAPI.Data.Entities
         [Column(TypeName = "VARCHAR(2000)")]
         public string detail                    {get;set;}
         [Required]
-        public int isSaling                     {get;set;}
+        public Status isSaling                     {get;set;}
         public DateTime expiredSalingDate       {get;set;}
         [Required]
         public DateTime dateAdded { get; set; }

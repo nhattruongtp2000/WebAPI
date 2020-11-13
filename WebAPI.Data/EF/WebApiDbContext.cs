@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WebAPI.Data.Configuration;
 using WebAPI.Data.Entities;
+using WebAPI.Data.Extensions;
 
 namespace WebAPI.Data.EF
 {
@@ -12,6 +14,15 @@ namespace WebAPI.Data.EF
         {
 
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //config
+            modelBuilder.ApplyConfiguration(new usersConfiguration());
+
+            //seeding
+            modelBuilder.Seed();
         }
 
         public DbSet<ordersDetails> ordersDetails { get; set; }

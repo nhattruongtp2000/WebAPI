@@ -272,6 +272,65 @@ namespace WebAPI.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "productBrands",
+                columns: new[] { "idBrand", "brandDetail", "brandName" },
+                values: new object[,]
+                {
+                    { "1", "Logo", "Logo" },
+                    { "2", "Company", "Company" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productCategories",
+                columns: new[] { "idCategory", "categoryName" },
+                values: new object[,]
+                {
+                    { "1", "Shoes" },
+                    { "2", "Shirt" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productColors",
+                columns: new[] { "idColor", "colorName" },
+                values: new object[,]
+                {
+                    { "ffffff", "While" },
+                    { "Red", "Red" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productDetails",
+                columns: new[] { "idProductDetail", "dateAdded", "detail", "expiredSalingDate", "isSaling", "photoReview", "price", "salePrice" },
+                values: new object[,]
+                {
+                    { "1", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "yes", "1000000", "1000000" },
+                    { "2", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "yes", "2000000", "1000000" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productSizes",
+                columns: new[] { "idSize", "sizeName" },
+                values: new object[,]
+                {
+                    { "1", "L" },
+                    { "2", "M" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "productTypes",
+                columns: new[] { "idType", "typeName" },
+                values: new object[,]
+                {
+                    { "1", "Cheap" },
+                    { "2", "Expensive" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "products",
+                columns: new[] { "idProduct", "idBrand", "idCategory", "idColor", "idProductDetail", "idSize", "idType", "ordersDetailsidOrder" },
+                values: new object[] { "001", "1", "1", "ffffff", "1", "1", "1", null });
+
             migrationBuilder.CreateIndex(
                 name: "IX_ordersLists_idOrder",
                 table: "ordersLists",
@@ -326,6 +385,12 @@ namespace WebAPI.Data.Migrations
                 name: "IX_ratings_idProduct",
                 table: "ratings",
                 column: "idProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_users_email",
+                table: "users",
+                column: "email",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
