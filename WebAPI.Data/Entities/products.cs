@@ -25,6 +25,11 @@ namespace WebAPI.Data.Entities
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string idCategory { get; set; }
+        
+
+        
+        [Column(TypeName = "VARCHAR(200)")]
+        public string photoReview { get; set; }
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string idType { get; set; }
@@ -33,7 +38,9 @@ namespace WebAPI.Data.Entities
 
         public List<productDetail> productDetails { get; set; }
 
-        public List<ProductInCategory> ProductInCategories { get; set; }
+    
+
+        public List<productPhotos> productPhotos { get; set; }
 
         [ForeignKey("idBrand")]
         public virtual productBrand ProductBrand { get; set; }

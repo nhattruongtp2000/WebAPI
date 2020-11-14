@@ -11,15 +11,23 @@ namespace WebAPI.Data.Entities
     {
         [Key]
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string idProductDetail { get; set; }
+        public int Id { get; set; }
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
-        public string link { get; set; }
+        public string idProduct { get; set; }
+        [Required]
+        [Column(TypeName = "VARCHAR(200)")]
+        public string ImagePath { get; set; }
+        public string Caption { get; set; }
+
+        public bool IsDefaukt { get; set; }
+
+        public int FileSize { get; set; }
+
         [Required]
         public DateTime uploadedTime { get; set; }
 
-        [ForeignKey("idProductDetail")]
-        public virtual productDetail ProductDetail { get; set; }
+        [ForeignKey("idProduct")]
+        public virtual products Products { get; set; }
     }
 }

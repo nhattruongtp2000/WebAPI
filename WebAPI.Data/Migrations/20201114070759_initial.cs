@@ -39,7 +39,8 @@ namespace WebAPI.Data.Migrations
                 name: "productCategories",
                 columns: table => new
                 {
-                    idCategory = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idCategory = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     categoryName = table.Column<string>(type: "VARCHAR(200)", nullable: false)
                 },
                 constraints: table =>
@@ -57,24 +58,6 @@ namespace WebAPI.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_productColors", x => x.idColor);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "productDetails",
-                columns: table => new
-                {
-                    idProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    price = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    salePrice = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    photoReview = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    detail = table.Column<string>(type: "VARCHAR(2000)", nullable: false),
-                    isSaling = table.Column<int>(type: "int", nullable: false),
-                    expiredSalingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    dateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_productDetails", x => x.idProductDetail);
                 });
 
             migrationBuilder.CreateTable(
@@ -232,35 +215,17 @@ namespace WebAPI.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "productPhotos",
-                columns: table => new
-                {
-                    idProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    link = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    uploadedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_productPhotos", x => x.idProductDetail);
-                    table.ForeignKey(
-                        name: "FK_productPhotos_productDetails_idProductDetail",
-                        column: x => x.idProductDetail,
-                        principalTable: "productDetails",
-                        principalColumn: "idProductDetail",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "products",
                 columns: table => new
                 {
                     idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    idProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idSize = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idBrand = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idColor = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idCategory = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    photoReview = table.Column<string>(type: "VARCHAR(200)", nullable: true),
                     idType = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    ViewCount = table.Column<int>(type: "int", nullable: false),
                     ordersDetailsidOrder = table.Column<string>(type: "VARCHAR(200)", nullable: true)
                 },
                 constraints: table =>
@@ -279,22 +244,10 @@ namespace WebAPI.Data.Migrations
                         principalColumn: "idBrand",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_products_productCategories_idCategory",
-                        column: x => x.idCategory,
-                        principalTable: "productCategories",
-                        principalColumn: "idCategory",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_products_productColors_idColor",
                         column: x => x.idColor,
                         principalTable: "productColors",
                         principalColumn: "idColor",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_products_productDetails_idProductDetail",
-                        column: x => x.idProductDetail,
-                        principalTable: "productDetails",
-                        principalColumn: "idProductDetail",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_products_productSizes_idSize",
@@ -307,32 +260,6 @@ namespace WebAPI.Data.Migrations
                         column: x => x.idType,
                         principalTable: "productTypes",
                         principalColumn: "idType",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ratings",
-                columns: table => new
-                {
-                    idUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    comment = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    rateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    rate = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.ForeignKey(
-                        name: "FK_ratings_productDetails_idProduct",
-                        column: x => x.idProduct,
-                        principalTable: "productDetails",
-                        principalColumn: "idProductDetail",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ratings_users_idUser",
-                        column: x => x.idUser,
-                        principalTable: "users",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -366,10 +293,115 @@ namespace WebAPI.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "productDetails",
+                columns: table => new
+                {
+                    idProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    ProductName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    price = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    salePrice = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    detail = table.Column<string>(type: "VARCHAR(2000)", nullable: false),
+                    isSaling = table.Column<int>(type: "int", nullable: false),
+                    expiredSalingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productDetails", x => x.idProductDetail);
+                    table.ForeignKey(
+                        name: "FK_productDetails_products_idProduct",
+                        column: x => x.idProduct,
+                        principalTable: "products",
+                        principalColumn: "idProduct",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductInCategories",
+                columns: table => new
+                {
+                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: true),
+                    idCategory = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_ProductInCategories_productCategories_idCategory",
+                        column: x => x.idCategory,
+                        principalTable: "productCategories",
+                        principalColumn: "idCategory",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductInCategories_products_idProduct",
+                        column: x => x.idProduct,
+                        principalTable: "products",
+                        principalColumn: "idProduct",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "productPhotos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    ImagePath = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefaukt = table.Column<bool>(type: "bit", nullable: false),
+                    FileSize = table.Column<int>(type: "int", nullable: false),
+                    uploadedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    productDetailidProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productPhotos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_productPhotos_productDetails_productDetailidProductDetail",
+                        column: x => x.productDetailidProductDetail,
+                        principalTable: "productDetails",
+                        principalColumn: "idProductDetail",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_productPhotos_products_idProduct",
+                        column: x => x.idProduct,
+                        principalTable: "products",
+                        principalColumn: "idProduct",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ratings",
+                columns: table => new
+                {
+                    idUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    comment = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    rateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    rate = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_ratings_productDetails_idProduct",
+                        column: x => x.idProduct,
+                        principalTable: "productDetails",
+                        principalColumn: "idProductDetail",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ratings_users_idUser",
+                        column: x => x.idUser,
+                        principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "7d76b690-7e86-4d00-9920-c52545c3f31b", "Administrator role", "admin", "admin" });
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "06961f78-ba6e-4060-9205-9b51ef70e6f2", "Administrator role", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -390,8 +422,8 @@ namespace WebAPI.Data.Migrations
                 columns: new[] { "idCategory", "categoryName" },
                 values: new object[,]
                 {
-                    { "1", "Shoes" },
-                    { "2", "Shirt" }
+                    { 1, "Shoes" },
+                    { 2, "Shirt" }
                 });
 
             migrationBuilder.InsertData(
@@ -401,15 +433,6 @@ namespace WebAPI.Data.Migrations
                 {
                     { "ffffff", "While" },
                     { "Red", "Red" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "productDetails",
-                columns: new[] { "idProductDetail", "dateAdded", "detail", "expiredSalingDate", "isSaling", "photoReview", "price", "salePrice" },
-                values: new object[,]
-                {
-                    { "1", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "yes", "1000000", "1000000" },
-                    { "2", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "yes", "2000000", "1000000" }
                 });
 
             migrationBuilder.InsertData(
@@ -433,12 +456,27 @@ namespace WebAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "birthday", "firstName", "interestedIn", "lastLogin", "lastName", "note", "province" },
-                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "c71b7c00-8f38-4f21-9a9e-0f13bcfe5d20", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAENk5b0tIHDe9Fndjw2kPP8n/m5dbx9tul5PYotxUOm1oR1q1kI5c5O6lPIb1TsUNtw==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
+                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "8185330f-1d03-4184-b993-e8bcadc5a298", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAEHn/yrVzwCP80wM+H3ZjWRmvSl9OEtKrJi0nq6hItcsm2ugk1Vg5yPjvh6UsBNpnpQ==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "idProduct", "idBrand", "idCategory", "idColor", "idProductDetail", "idSize", "idType", "ordersDetailsidOrder" },
-                values: new object[] { "001", "1", "1", "ffffff", "1", "1", "1", null });
+                columns: new[] { "idProduct", "ViewCount", "idBrand", "idCategory", "idColor", "idSize", "idType", "ordersDetailsidOrder", "photoReview" },
+                values: new object[] { "001", 0, "1", "1", "ffffff", "1", "1", null, null });
+
+            migrationBuilder.InsertData(
+                table: "products",
+                columns: new[] { "idProduct", "ViewCount", "idBrand", "idCategory", "idColor", "idSize", "idType", "ordersDetailsidOrder", "photoReview" },
+                values: new object[] { "002", 0, "1", "1", "ffffff", "1", "1", null, null });
+
+            migrationBuilder.InsertData(
+                table: "productDetails",
+                columns: new[] { "idProductDetail", "ProductName", "dateAdded", "detail", "expiredSalingDate", "idProduct", "isSaling", "price", "salePrice" },
+                values: new object[] { "1", "Shoe", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "001", 0, "1000000", "1000000" });
+
+            migrationBuilder.InsertData(
+                table: "productDetails",
+                columns: new[] { "idProductDetail", "ProductName", "dateAdded", "detail", "expiredSalingDate", "idProduct", "isSaling", "price", "salePrice" },
+                values: new object[] { "2", "Pro", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "002", 1, "2000000", "1000000" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ordersLists_idOrder",
@@ -456,24 +494,39 @@ namespace WebAPI.Data.Migrations
                 column: "idUser");
 
             migrationBuilder.CreateIndex(
+                name: "IX_productDetails_idProduct",
+                table: "productDetails",
+                column: "idProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductInCategories_idCategory",
+                table: "ProductInCategories",
+                column: "idCategory");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductInCategories_idProduct",
+                table: "ProductInCategories",
+                column: "idProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_productPhotos_idProduct",
+                table: "productPhotos",
+                column: "idProduct");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_productPhotos_productDetailidProductDetail",
+                table: "productPhotos",
+                column: "productDetailidProductDetail");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_products_idBrand",
                 table: "products",
                 column: "idBrand");
 
             migrationBuilder.CreateIndex(
-                name: "IX_products_idCategory",
-                table: "products",
-                column: "idCategory");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_products_idColor",
                 table: "products",
                 column: "idColor");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_products_idProductDetail",
-                table: "products",
-                column: "idProductDetail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_products_idSize",
@@ -507,6 +560,9 @@ namespace WebAPI.Data.Migrations
                 name: "ordersLists");
 
             migrationBuilder.DropTable(
+                name: "ProductInCategories");
+
+            migrationBuilder.DropTable(
                 name: "productPhotos");
 
             migrationBuilder.DropTable(
@@ -534,10 +590,16 @@ namespace WebAPI.Data.Migrations
                 name: "vouchers");
 
             migrationBuilder.DropTable(
-                name: "products");
+                name: "productCategories");
+
+            migrationBuilder.DropTable(
+                name: "productDetails");
 
             migrationBuilder.DropTable(
                 name: "users");
+
+            migrationBuilder.DropTable(
+                name: "products");
 
             migrationBuilder.DropTable(
                 name: "OrdersDetails");
@@ -546,13 +608,7 @@ namespace WebAPI.Data.Migrations
                 name: "productBrands");
 
             migrationBuilder.DropTable(
-                name: "productCategories");
-
-            migrationBuilder.DropTable(
                 name: "productColors");
-
-            migrationBuilder.DropTable(
-                name: "productDetails");
 
             migrationBuilder.DropTable(
                 name: "productSizes");

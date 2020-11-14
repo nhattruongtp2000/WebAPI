@@ -27,9 +27,7 @@ namespace WebAPI.Data.Entities
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public decimal salePrice                 {get;set;}
-        [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string photoReview               {get;set;}
+        
         [Required]
         [Column(TypeName = "VARCHAR(2000)")]
         public string detail                    {get;set;}
