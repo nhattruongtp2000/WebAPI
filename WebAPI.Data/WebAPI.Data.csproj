@@ -20,4 +20,9 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI.Utilities\WebAPI.Utilities.csproj" />
+    <ProjectReference Include="..\WebAPI.ViewModels\WebAPI.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

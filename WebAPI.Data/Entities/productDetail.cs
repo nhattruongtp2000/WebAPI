@@ -17,6 +17,12 @@ namespace WebAPI.Data.Entities
         public string idProductDetail           {get;set;}
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
+        public string idProduct{ get; set; }
+        [Required]
+        [Column(TypeName = "VARCHAR(200)")]
+        public string ProductName { get; set; }
+        [Required]
+        [Column(TypeName = "VARCHAR(200)")]
         public decimal   price                     {get;set;}
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
@@ -33,7 +39,8 @@ namespace WebAPI.Data.Entities
         [Required]
         public DateTime dateAdded { get; set; }
 
-        
+        [ForeignKey("idProduct")]
+        public virtual products Products { get; set; }
         public virtual ICollection<productPhotos> productPhotos { set; get; }
 
         

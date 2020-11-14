@@ -53,6 +53,7 @@ namespace WebAPI.Data.EF
         public DbSet<rating> ratings { get; set; }
         public DbSet<users> users { get; set; }
         public DbSet<vouchers> vouchers { get; set; }
+        public DbSet<ProductInCategory> ProductInCategories { get; set; }
 
 
 

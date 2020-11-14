@@ -29,15 +29,15 @@ namespace WebAPI.Data.Extensions
                 new productColor() { idColor = "Red", colorName = "Red" }
             );
             modelBuilder.Entity<productCategories>().HasData(
-                new productCategories() { idCategory="1",categoryName="Shoes"},
-                new productCategories() { idCategory = "2", categoryName = "Shirt" }
+                new productCategories() { idCategory=1,categoryName="Shoes"},
+                new productCategories() { idCategory =2, categoryName = "Shirt" }
             );
             modelBuilder.Entity<productTypes>().HasData(
                 new productTypes() { idType="1",typeName="Cheap"},
                 new productTypes() { idType = "2", typeName = "Expensive" }
             );
             modelBuilder.Entity<products>().HasData(
-                new products() { idProduct = "001", idProductDetail = "1", idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" }
+                new products() { idProduct = "001" ,idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" }
             );
 
 
