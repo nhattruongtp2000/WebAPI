@@ -20,9 +20,9 @@ namespace WebAPI.Data.Entities
         public string ImagePath { get; set; }
         public string Caption { get; set; }
 
-        public bool IsDefaukt { get; set; }
+        public bool IsDefault { get; set; }
 
-        public int FileSize { get; set; }
+        public long FileSize { get; set; }
 
         [Required]
         public DateTime uploadedTime { get; set; }
