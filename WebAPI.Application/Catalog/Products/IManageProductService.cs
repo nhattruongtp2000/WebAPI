@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using WebAPI.ViewModels.Catalog.ProductImages;
 using WebAPI.ViewModels.Catalog.Products;
 using WebAPI.ViewModels.Common;
 
@@ -24,12 +25,15 @@ namespace WebAPI.Application.Catalog.Products
 
         Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
 
-        Task<int> AddImage(int idProduct, List<IFormFile> files);
+        //image
+        Task<int> AddImage(int idProduct, ProductImageCreateRequest reques);
 
-        Task<int> RemoveImages(int  imageId);
+        Task<int> RemoveImage(int  imageId);
 
-        Task<int> UpdateImage(int imageId,string caption,bool isDefault);
+        Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request);
 
-        Task<List<ProductImageViewModel>> GetListImage(int productId);
+        Task<ProductImageViewModel> GetImageById(int imageId);
+
+        Task<List<ProductImageViewModel>> GetListImages(int idProduct);
     }
 }

@@ -29,7 +29,8 @@ namespace WebAPI.Data.Entities
         [Column(TypeName = "VARCHAR(2000)")]
         public string detail                    {get;set;}
 
-        public Status isSaling                     {get;set;}
+        [DefaultValue(false)]
+        public bool isSaling                     {get;set;}
         public DateTime expiredSalingDate       {get;set;}
    
         public DateTime dateAdded { get; set; }

@@ -304,7 +304,7 @@ namespace WebAPI.Data.Migrations
                     price = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     salePrice = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     detail = table.Column<string>(type: "VARCHAR(2000)", nullable: false),
-                    isSaling = table.Column<int>(type: "int", nullable: false),
+                    isSaling = table.Column<bool>(type: "bit", nullable: false),
                     expiredSalingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     dateAdded = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -352,6 +352,7 @@ namespace WebAPI.Data.Migrations
                     ImagePath = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
                     FileSize = table.Column<long>(type: "bigint", nullable: false),
                     uploadedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     productDetailidProductDetail = table.Column<int>(type: "int", nullable: true)
@@ -402,7 +403,7 @@ namespace WebAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "a5650dce-9e3a-4c24-8fc5-d3843e430fc1", "Administrator role", "admin", "admin" });
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "d59c172a-ba42-484b-8ccd-a41c4ff0ade2", "Administrator role", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -457,7 +458,7 @@ namespace WebAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "birthday", "firstName", "interestedIn", "lastLogin", "lastName", "note", "province" },
-                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "50b6641a-56ec-47fb-8a79-96c821f54fec", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAEM5+kYTMHhEy47Z5uNaJCv9ZrpWpFGrELm/HK4jCyg+EhSTYuH83XvaRafxuH0Pn3w==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
+                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "725ef6bc-21aa-405f-893d-45360d56c573", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAEJBRVHInXM/pRHpMnokWf+qIiHyK/5H9bL7MgBmvbSxrISu+eC4ZFlRSIK2vxChbOQ==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
 
             migrationBuilder.InsertData(
                 table: "products",
@@ -472,12 +473,12 @@ namespace WebAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "productDetails",
                 columns: new[] { "idProductDetail", "ProductName", "dateAdded", "detail", "expiredSalingDate", "idProduct", "isSaling", "price", "salePrice" },
-                values: new object[] { 1, "Shoe", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 0, "1000000", "1000000" });
+                values: new object[] { 1, "Shoe", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "1000000", "1000000" });
 
             migrationBuilder.InsertData(
                 table: "productDetails",
                 columns: new[] { "idProductDetail", "ProductName", "dateAdded", "detail", "expiredSalingDate", "idProduct", "isSaling", "price", "salePrice" },
-                values: new object[] { 2, "Pro", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, "2000000", "1000000" });
+                values: new object[] { 2, "Pro", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, false, "2000000", "1000000" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ordersLists_idOrder",

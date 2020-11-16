@@ -21,6 +21,8 @@ namespace WebAPI.Data.Entities
 
         public bool IsDefault { get; set; }
 
+        public int SortOrder { get; set; }
+
         public long FileSize { get; set; }
 
         [Required]

@@ -291,8 +291,8 @@ namespace WebAPI.Data.Migrations
                     b.Property<int>("idProduct")
                         .HasColumnType("int");
 
-                    b.Property<int>("isSaling")
-                        .HasColumnType("int");
+                    b.Property<bool>("isSaling")
+                        .HasColumnType("bit");
 
                     b.Property<string>("price")
                         .IsRequired()
@@ -317,7 +317,7 @@ namespace WebAPI.Data.Migrations
                             detail = "goood product",
                             expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             idProduct = 1,
-                            isSaling = 0,
+                            isSaling = false,
                             price = "1000000",
                             salePrice = "1000000"
                         },
@@ -329,7 +329,7 @@ namespace WebAPI.Data.Migrations
                             detail = "goood product",
                             expiredSalingDate = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             idProduct = 2,
-                            isSaling = 1,
+                            isSaling = false,
                             price = "2000000",
                             salePrice = "1000000"
                         });
@@ -354,6 +354,9 @@ namespace WebAPI.Data.Migrations
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
 
                     b.Property<int>("idProduct")
                         .HasColumnType("int");
@@ -547,7 +550,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "a5650dce-9e3a-4c24-8fc5-d3843e430fc1",
+                            ConcurrencyStamp = "d59c172a-ba42-484b-8ccd-a41c4ff0ade2",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -635,13 +638,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "50b6641a-56ec-47fb-8a79-96c821f54fec",
+                            ConcurrencyStamp = "725ef6bc-21aa-405f-893d-45360d56c573",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM5+kYTMHhEy47Z5uNaJCv9ZrpWpFGrELm/HK4jCyg+EhSTYuH83XvaRafxuH0Pn3w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJBRVHInXM/pRHpMnokWf+qIiHyK/5H9bL7MgBmvbSxrISu+eC4ZFlRSIK2vxChbOQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
