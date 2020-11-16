@@ -218,12 +218,12 @@ namespace WebAPI.Data.Migrations
                 name: "products",
                 columns: table => new
                 {
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idProduct = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     idSize = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idBrand = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idColor = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idCategory = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    photoReview = table.Column<string>(type: "VARCHAR(200)", nullable: true),
                     idType = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     ViewCount = table.Column<int>(type: "int", nullable: false),
                     ordersDetailsidOrder = table.Column<string>(type: "VARCHAR(200)", nullable: true)
@@ -269,7 +269,7 @@ namespace WebAPI.Data.Migrations
                 {
                     idOrder = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     idUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false)
+                    idProduct = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,8 +297,9 @@ namespace WebAPI.Data.Migrations
                 name: "productDetails",
                 columns: table => new
                 {
-                    idProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idProductDetail = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    idProduct = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     price = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     salePrice = table.Column<string>(type: "VARCHAR(200)", nullable: false),
@@ -322,7 +323,7 @@ namespace WebAPI.Data.Migrations
                 name: "ProductInCategories",
                 columns: table => new
                 {
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: true),
+                    idProduct = table.Column<int>(type: "int", nullable: false),
                     idCategory = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -338,7 +339,7 @@ namespace WebAPI.Data.Migrations
                         column: x => x.idProduct,
                         principalTable: "products",
                         principalColumn: "idProduct",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -347,13 +348,13 @@ namespace WebAPI.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idProduct = table.Column<int>(type: "int", nullable: false),
                     ImagePath = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefaukt = table.Column<bool>(type: "bit", nullable: false),
-                    FileSize = table.Column<int>(type: "int", nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false),
                     uploadedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    productDetailidProductDetail = table.Column<string>(type: "VARCHAR(200)", nullable: true)
+                    productDetailidProductDetail = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -377,7 +378,7 @@ namespace WebAPI.Data.Migrations
                 columns: table => new
                 {
                     idUser = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    idProduct = table.Column<string>(type: "VARCHAR(200)", nullable: false),
+                    idProduct = table.Column<int>(type: "int", nullable: false),
                     comment = table.Column<string>(type: "VARCHAR(200)", nullable: false),
                     rateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     rate = table.Column<int>(type: "int", nullable: false)
@@ -401,7 +402,7 @@ namespace WebAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
-                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "06961f78-ba6e-4060-9205-9b51ef70e6f2", "Administrator role", "admin", "admin" });
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), "a5650dce-9e3a-4c24-8fc5-d3843e430fc1", "Administrator role", "admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -456,27 +457,27 @@ namespace WebAPI.Data.Migrations
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "birthday", "firstName", "interestedIn", "lastLogin", "lastName", "note", "province" },
-                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "8185330f-1d03-4184-b993-e8bcadc5a298", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAEHn/yrVzwCP80wM+H3ZjWRmvSl9OEtKrJi0nq6hItcsm2ugk1Vg5yPjvh6UsBNpnpQ==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
+                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, "50b6641a-56ec-47fb-8a79-96c821f54fec", "nhattruongtp2000@gmail.com", true, false, null, "nhattruongtp2000@gmail.com", "admin", "AQAAAAEAACcQAAAAEM5+kYTMHhEy47Z5uNaJCv9ZrpWpFGrELm/HK4jCyg+EhSTYuH83XvaRafxuH0Pn3w==", null, false, "", false, "admin", "2020-10-12 00:00:00", "Nguyen", null, new DateTime(2020, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Truong", null, null });
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "idProduct", "ViewCount", "idBrand", "idCategory", "idColor", "idSize", "idType", "ordersDetailsidOrder", "photoReview" },
-                values: new object[] { "001", 0, "1", "1", "ffffff", "1", "1", null, null });
+                columns: new[] { "idProduct", "ViewCount", "idBrand", "idCategory", "idColor", "idSize", "idType", "ordersDetailsidOrder" },
+                values: new object[] { 1, 0, "1", "1", "ffffff", "1", "1", null });
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "idProduct", "ViewCount", "idBrand", "idCategory", "idColor", "idSize", "idType", "ordersDetailsidOrder", "photoReview" },
-                values: new object[] { "002", 0, "1", "1", "ffffff", "1", "1", null, null });
+                columns: new[] { "idProduct", "ViewCount", "idBrand", "idCategory", "idColor", "idSize", "idType", "ordersDetailsidOrder" },
+                values: new object[] { 2, 0, "1", "1", "ffffff", "1", "1", null });
 
             migrationBuilder.InsertData(
                 table: "productDetails",
                 columns: new[] { "idProductDetail", "ProductName", "dateAdded", "detail", "expiredSalingDate", "idProduct", "isSaling", "price", "salePrice" },
-                values: new object[] { "1", "Shoe", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "001", 0, "1000000", "1000000" });
+                values: new object[] { 1, "Shoe", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 0, "1000000", "1000000" });
 
             migrationBuilder.InsertData(
                 table: "productDetails",
                 columns: new[] { "idProductDetail", "ProductName", "dateAdded", "detail", "expiredSalingDate", "idProduct", "isSaling", "price", "salePrice" },
-                values: new object[] { "2", "Pro", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "002", 1, "2000000", "1000000" });
+                values: new object[] { 2, "Pro", new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "goood product", new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, "2000000", "1000000" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ordersLists_idOrder",

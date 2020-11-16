@@ -13,8 +13,8 @@ namespace WebAPI.Data.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<productDetail>().HasData(
-                new productDetail() { idProduct="001",idProductDetail="1",ProductName="Shoe",price=1000000,salePrice=1000000,detail="goood product",isSaling=Status.Active,dateAdded=new DateTime(2019,10,21)},
-                new productDetail() { idProduct="002",idProductDetail = "2", ProductName = "Pro" ,price = 2000000, salePrice = 1000000, detail = "goood product", isSaling = Status.UnActive, expiredSalingDate=new DateTime(2020,10,12), dateAdded = new DateTime(2019, 10, 21) }
+                new productDetail() { idProduct=1,idProductDetail=1,ProductName="Shoe",price=1000000,salePrice=1000000,detail="goood product",isSaling=Status.Active,dateAdded=new DateTime(2019,10,21)},
+                new productDetail() { idProduct=2,idProductDetail = 2, ProductName = "Pro" ,price = 2000000, salePrice = 1000000, detail = "goood product", isSaling = Status.UnActive, expiredSalingDate=new DateTime(2020,10,12), dateAdded = new DateTime(2019, 10, 21) }
             );
             modelBuilder.Entity<productSize>().HasData(
                 new productSize() { idSize="1",sizeName="L"},
@@ -37,8 +37,8 @@ namespace WebAPI.Data.Extensions
                 new productTypes() { idType = "2", typeName = "Expensive" }
             );
             modelBuilder.Entity<products>().HasData(
-                new products() { idProduct = "001" ,idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" },
-                new products() { idProduct = "002", idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" }
+                new products() { idProduct = 1 ,idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" },
+                new products() { idProduct = 2, idSize = "1", idBrand = "1", idColor = "ffffff", idCategory = "1", idType = "1" }
             );
 
 

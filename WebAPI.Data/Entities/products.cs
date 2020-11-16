@@ -11,8 +11,8 @@ namespace WebAPI.Data.Entities
     {
         [Key]
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string idProduct { get; set; }
+        
+        public int idProduct { get; set; }
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string idSize { get; set; }
@@ -26,9 +26,7 @@ namespace WebAPI.Data.Entities
         [Column(TypeName = "VARCHAR(200)")]
         public string idCategory { get; set; }
 
-
-
-        public List<productPhotos> ProductImages { get; set; }
+        
 
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
@@ -38,8 +36,6 @@ namespace WebAPI.Data.Entities
 
         public List<productDetail> productDetails { get; set; }
 
-    
-
         public List<productPhotos> productPhotos { get; set; }
 
         [ForeignKey("idBrand")]
@@ -47,7 +43,6 @@ namespace WebAPI.Data.Entities
 
         [ForeignKey("idSize")]
         public virtual productSize ProductSize { get; set; }
-
 
         [ForeignKey("idType")]
         public virtual productTypes ProductTypes { get; set; }

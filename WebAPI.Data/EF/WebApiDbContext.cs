@@ -21,6 +21,10 @@ namespace WebAPI.Data.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //config
+
+            modelBuilder.ApplyConfiguration(new productsConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductDetailConfiguration());
+
             modelBuilder.ApplyConfiguration(new usersConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Application", "WebAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.ViewModels", "WebAPI.ViewModels\WebAPI.ViewModels.csproj", "{79506F7C-60CC-43BB-B85D-61709044F6B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.Utilities", "WebAPI.Utilities\WebAPI.Utilities.csproj", "{280ACFD5-38E0-46FF-873E-F27BF846CBDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI.Utilities", "WebAPI.Utilities\WebAPI.Utilities.csproj", "{280ACFD5-38E0-46FF-873E-F27BF846CBDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI.BackendAPI", "WebAPI.BackendAPI\WebAPI.BackendAPI.csproj", "{A33DA369-E5F9-4D3A-92AA-E71F38E8964D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{280ACFD5-38E0-46FF-873E-F27BF846CBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{280ACFD5-38E0-46FF-873E-F27BF846CBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{280ACFD5-38E0-46FF-873E-F27BF846CBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A33DA369-E5F9-4D3A-92AA-E71F38E8964D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A33DA369-E5F9-4D3A-92AA-E71F38E8964D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A33DA369-E5F9-4D3A-92AA-E71F38E8964D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A33DA369-E5F9-4D3A-92AA-E71F38E8964D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

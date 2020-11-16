@@ -18,7 +18,7 @@ namespace eShopSolution.Data.EF
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString("eShopSolutionDb");
+            var connectionString = configuration.GetConnectionString("WebAPI");
 
             var optionsBuilder = new DbContextOptionsBuilder<WebApiDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

@@ -7,7 +7,7 @@ namespace WebAPI.ViewModels.Catalog.Products
 {
     public class ProductUpdateRequest
     {
-        public string Id { get; set; }
+        public int  Id { get; set; }
         public decimal price { get; set; }
 
         public decimal salePrice { get; set; }

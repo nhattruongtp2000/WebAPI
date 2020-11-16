@@ -35,6 +35,7 @@ namespace WebAPI.Application.Catalog.Products
                     salePrice = x.pt.salePrice,
                     ViewCount = x.p.ViewCount,
                     detail = x.pt.detail,
+                    dateAdded=x.pt.dateAdded
 
                 }).ToListAsync();
             return data;
@@ -58,7 +59,7 @@ namespace WebAPI.Application.Catalog.Products
                 .Take(request.PageSize)
                 .Select(x => new ProductViewModel()
                 {
-                    Id = x.p.idProduct,
+                    Id =x.p.idProduct,
                     ProductName = x.pt.ProductName,
                     price = x.pt.price,
                     salePrice = x.pt.salePrice,

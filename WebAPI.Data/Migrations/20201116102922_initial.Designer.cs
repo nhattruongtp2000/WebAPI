@@ -10,7 +10,7 @@ using WebAPI.Data.EF;
 namespace WebAPI.Data.Migrations
 {
     [DbContext(typeof(WebApiDbContext))]
-    [Migration("20201114070759_initial")]
+    [Migration("20201116102922_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,8 +128,8 @@ namespace WebAPI.Data.Migrations
                     b.Property<int>("idCategory")
                         .HasColumnType("int");
 
-                    b.Property<string>("idProduct")
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProduct")
+                        .HasColumnType("int");
 
                     b.HasIndex("idCategory");
 
@@ -168,9 +168,8 @@ namespace WebAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
 
-                    b.Property<string>("idProduct")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProduct")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("idUser")
                         .HasColumnType("uniqueidentifier");
@@ -272,8 +271,10 @@ namespace WebAPI.Data.Migrations
 
             modelBuilder.Entity("WebAPI.Data.Entities.productDetail", b =>
                 {
-                    b.Property<string>("idProductDetail")
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProductDetail")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -289,9 +290,8 @@ namespace WebAPI.Data.Migrations
                     b.Property<DateTime>("expiredSalingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("idProduct")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProduct")
+                        .HasColumnType("int");
 
                     b.Property<int>("isSaling")
                         .HasColumnType("int");
@@ -313,24 +313,24 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idProductDetail = "1",
+                            idProductDetail = 1,
                             ProductName = "Shoe",
                             dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             detail = "goood product",
                             expiredSalingDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            idProduct = "001",
+                            idProduct = 1,
                             isSaling = 0,
                             price = "1000000",
                             salePrice = "1000000"
                         },
                         new
                         {
-                            idProductDetail = "2",
+                            idProductDetail = 2,
                             ProductName = "Pro",
                             dateAdded = new DateTime(2019, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             detail = "goood product",
                             expiredSalingDate = new DateTime(2020, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            idProduct = "002",
+                            idProduct = 2,
                             isSaling = 1,
                             price = "2000000",
                             salePrice = "1000000"
@@ -347,22 +347,21 @@ namespace WebAPI.Data.Migrations
                     b.Property<string>("Caption")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FileSize")
-                        .HasColumnType("int");
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
 
-                    b.Property<bool>("IsDefaukt")
+                    b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<string>("idProduct")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProduct")
+                        .HasColumnType("int");
 
-                    b.Property<string>("productDetailidProductDetail")
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int?>("productDetailidProductDetail")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("uploadedTime")
                         .HasColumnType("datetime2");
@@ -430,8 +429,10 @@ namespace WebAPI.Data.Migrations
 
             modelBuilder.Entity("WebAPI.Data.Entities.products", b =>
                 {
-                    b.Property<string>("idProduct")
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProduct")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<int>("ViewCount")
                         .HasColumnType("int");
@@ -459,9 +460,6 @@ namespace WebAPI.Data.Migrations
                     b.Property<string>("ordersDetailsidOrder")
                         .HasColumnType("VARCHAR(200)");
 
-                    b.Property<string>("photoReview")
-                        .HasColumnType("VARCHAR(200)");
-
                     b.HasKey("idProduct");
 
                     b.HasIndex("idBrand");
@@ -479,7 +477,7 @@ namespace WebAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            idProduct = "001",
+                            idProduct = 1,
                             ViewCount = 0,
                             idBrand = "1",
                             idCategory = "1",
@@ -489,7 +487,7 @@ namespace WebAPI.Data.Migrations
                         },
                         new
                         {
-                            idProduct = "002",
+                            idProduct = 2,
                             ViewCount = 0,
                             idBrand = "1",
                             idCategory = "1",
@@ -505,9 +503,8 @@ namespace WebAPI.Data.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(200)");
 
-                    b.Property<string>("idProduct")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(200)");
+                    b.Property<int>("idProduct")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("idUser")
                         .HasColumnType("uniqueidentifier");
@@ -552,7 +549,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "06961f78-ba6e-4060-9205-9b51ef70e6f2",
+                            ConcurrencyStamp = "a5650dce-9e3a-4c24-8fc5-d3843e430fc1",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -640,13 +637,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8185330f-1d03-4184-b993-e8bcadc5a298",
+                            ConcurrencyStamp = "50b6641a-56ec-47fb-8a79-96c821f54fec",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHn/yrVzwCP80wM+H3ZjWRmvSl9OEtKrJi0nq6hItcsm2ugk1Vg5yPjvh6UsBNpnpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM5+kYTMHhEy47Z5uNaJCv9ZrpWpFGrELm/HK4jCyg+EhSTYuH83XvaRafxuH0Pn3w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -684,7 +681,9 @@ namespace WebAPI.Data.Migrations
 
                     b.HasOne("WebAPI.Data.Entities.products", "Product")
                         .WithMany()
-                        .HasForeignKey("idProduct");
+                        .HasForeignKey("idProduct")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 

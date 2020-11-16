@@ -17,8 +17,7 @@ namespace WebAPI.Data.Entities
         
         public Guid idUser { get; set; }
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string idProduct { get; set; }
+        public int idProduct { get; set; }
 
 
         [ForeignKey("idUser")]

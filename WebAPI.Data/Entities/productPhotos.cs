@@ -13,8 +13,7 @@ namespace WebAPI.Data.Entities
         [Required]
         public int Id { get; set; }
         [Required]
-        [Column(TypeName = "VARCHAR(200)")]
-        public string idProduct { get; set; }
+        public int idProduct { get; set; }
         [Required]
         [Column(TypeName = "VARCHAR(200)")]
         public string ImagePath { get; set; }

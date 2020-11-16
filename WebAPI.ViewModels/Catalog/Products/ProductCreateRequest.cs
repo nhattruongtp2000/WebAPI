@@ -7,14 +7,14 @@ namespace WebAPI.ViewModels.Catalog.Products
 {
     public class ProductCreateRequest
     {
+       
         public decimal price { get; set; }
-
-        public string ProducttName { get; set; }
 
         public decimal salePrice { get; set; }
         public string detail { get; set; }
 
         public string ProductName { get; set; }
+
 
         public string idSize { get; set; }
         public string idBrand { get; set; }

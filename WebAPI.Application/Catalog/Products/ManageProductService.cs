@@ -26,7 +26,7 @@ namespace WebAPI.Application.Catalog.Products
             _storageService = storageService;
         }
 
-        public Task<int> AddImage(string idProduct, List<IFormFile> files)
+        public Task<int> AddImage(int idProduct, List<IFormFile> files)
         {
             throw new NotImplementedException();
         }
@@ -79,10 +79,11 @@ namespace WebAPI.Application.Catalog.Products
                 };
             }
             _context.Add(product);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return product.idProduct;
         }
 
-        public async Task<int> Delete(string idProduct)
+        public async Task<int> Delete(int idProduct)
         {
             var product = await _context.products.FindAsync(idProduct);
             if (product == null) throw new WebAPIException($"Cannot find a product: {idProduct}");
@@ -139,6 +140,24 @@ namespace WebAPI.Application.Catalog.Products
                 Items = data
             };
             return pagedResult;
+        }
+
+        public async Task<ProductViewModel> GetById(int productId)
+        {
+            var product = await _context.products.FindAsync(productId);
+            var productTranslation = await _context.productDetails.FirstOrDefaultAsync(x => x.idProduct == productId) ;
+
+            var productViewModel = new ProductViewModel()
+            {
+                Id = product.idProduct,
+                ProductName = productTranslation.ProductName,
+                price = productTranslation.price,
+                salePrice = productTranslation.salePrice,
+                ViewCount = product.ViewCount,
+                detail = productTranslation.detail,
+                dateAdded =productTranslation.dateAdded
+            };
+            return productViewModel;
         }
 
         public Task<List<ProductImageViewModel>> GetListImage(int productId)

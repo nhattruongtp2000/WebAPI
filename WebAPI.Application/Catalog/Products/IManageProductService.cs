@@ -14,15 +14,17 @@ namespace WebAPI.Application.Catalog.Products
 
         Task<int> Update(ProductUpdateRequest request);
 
-        Task<int> Delete(string idProduct);
+        Task<int> Delete(int idProduct);
 
         Task<bool> UpdatePrice(int idProduct, decimal newPrice);
+
+        Task<ProductViewModel> GetById(int productId);
 
         Task AddViewcount(int idProduct);
 
         Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request);
 
-        Task<int> AddImage(string idProduct, List<IFormFile> files);
+        Task<int> AddImage(int idProduct, List<IFormFile> files);
 
         Task<int> RemoveImages(int  imageId);
 

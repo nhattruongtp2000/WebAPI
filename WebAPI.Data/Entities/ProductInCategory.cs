@@ -12,8 +12,7 @@ namespace WebAPI.Data.Entities
     public class ProductInCategory
     {
         
-        [Column(TypeName = "VARCHAR(200)")]
-        public string  idProduct { get; set; }
+        public int  idProduct { get; set; }
 
         [ForeignKey("idProduct")]
         public virtual products Product { get; set; }
