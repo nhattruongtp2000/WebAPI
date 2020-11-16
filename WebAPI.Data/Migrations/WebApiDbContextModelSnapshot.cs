@@ -550,7 +550,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "d59c172a-ba42-484b-8ccd-a41c4ff0ade2",
+                            ConcurrencyStamp = "b582349b-2c82-43a9-bc09-9e26b326ca20",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -638,13 +638,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "725ef6bc-21aa-405f-893d-45360d56c573",
+                            ConcurrencyStamp = "0ad61b68-878e-4e26-8ad1-5795597fc38b",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJBRVHInXM/pRHpMnokWf+qIiHyK/5H9bL7MgBmvbSxrISu+eC4ZFlRSIK2vxChbOQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELLXh7ZsSWu54TFsSsKP0TadfZ57+Enaw5vprTBafi2l5mytAV5Z1gWirFPzOK2V7w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,

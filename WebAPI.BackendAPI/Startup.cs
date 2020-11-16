@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +13,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WebAPI.Application.Catalog.Products;
 using WebAPI.Application.Common;
+using WebAPI.Application.System.Users;
 using WebAPI.Data.EF;
+using WebAPI.Data.Entities;
 using WebAPI.Utilities.Constants;
 
 namespace WebAPI.BackendAPI
@@ -32,11 +35,20 @@ namespace WebAPI.BackendAPI
             services.AddDbContext<WebApiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 
+            services.AddIdentity<users,role>()
+                .AddEntityFrameworkStores<WebApiDbContext>()
+                .AddDefaultTokenProviders();
+
             //Declare DI
             services.AddTransient<IStorageService, FileStorageService>();
 
             services.AddTransient<IPublicProductService, PublicProductService>();
             services.AddTransient<IManageProductService, ManageProductService>();
+            services.AddTransient<UserManager<users>, UserManager<users>>();
+            services.AddTransient<SignInManager<users>, SignInManager<users>>();
+            services.AddTransient<RoleManager<role>, RoleManager<role>>();
+            services.AddTransient<IUserService, UserService>();
+
 
             services.AddControllersWithViews();
 
