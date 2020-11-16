@@ -11,6 +11,6 @@ namespace WebAPI.Application.Catalog.Products
     {
         Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
 
-        Task<List<ProductViewModel>> GetAll();
+        
     }
 }

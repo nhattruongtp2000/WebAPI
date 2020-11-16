@@ -19,27 +19,6 @@ namespace WebAPI.Application.Catalog.Products
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll()
-        {
-            var query = from p in _context.products
-                        join pt in _context.productDetails on p.idProduct equals pt.idProduct
-                        join pic in _context.ProductInCategories on p.idProduct equals pic.idProduct
-                        join c in _context.productCategories on pic.idCategory equals c.idCategory
-                        select new { p, pt, pic };
-
-            var data = await query.Select(x=>new ProductViewModel()
-                {
-                    Id = x.p.idProduct,
-                    ProductName = x.pt.ProductName,
-                    price = x.pt.price,
-                    salePrice = x.pt.salePrice,
-                    ViewCount = x.p.ViewCount,
-                    detail = x.pt.detail,
-                    dateAdded=x.pt.dateAdded
-
-                }).ToListAsync();
-            return data;
-        }
 
         public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request)
         {

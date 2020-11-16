@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Application.Catalog.Products;
@@ -12,6 +13,7 @@ namespace WebAPI.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IPublicProductService _publicProductService;
@@ -21,10 +23,11 @@ namespace WebAPI.BackendAPI.Controllers
             _publicProductService = publicProductService;
             _manageProductService = manageProductService;
         }
+
         [HttpGet]
-        public  async Task<IActionResult>Get()
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetPublicProductPagingRequest request)
         {
-            var products =await _publicProductService.GetAll();
+            var products = await _publicProductService.GetAllByCategoryId( request);
             return Ok(products);
         }
 
