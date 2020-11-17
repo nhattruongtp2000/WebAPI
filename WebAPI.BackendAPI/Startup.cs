@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +21,7 @@ using WebAPI.Application.System.Users;
 using WebAPI.Data.EF;
 using WebAPI.Data.Entities;
 using WebAPI.Utilities.Constants;
+using WebAPI.ViewModels.System.Users;
 
 namespace WebAPI.BackendAPI
 {
@@ -50,6 +53,12 @@ namespace WebAPI.BackendAPI
             services.AddTransient<SignInManager<users>, SignInManager<users>>();
             services.AddTransient<RoleManager<role>, RoleManager<role>>();
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
+
+            services.AddControllers()
+                .AddFluentValidation();
 
 
             services.AddControllers();
