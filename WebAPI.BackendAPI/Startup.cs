@@ -47,8 +47,8 @@ namespace WebAPI.BackendAPI
             //Declare DI
             services.AddTransient<IStorageService, FileStorageService>();
 
-            services.AddTransient<IPublicProductService, PublicProductService>();
-            services.AddTransient<IManageProductService, ManageProductService>();
+
+            services.AddTransient<IProductService, ProductService>();
             services.AddTransient<UserManager<users>, UserManager<users>>();
             services.AddTransient<SignInManager<users>, SignInManager<users>>();
             services.AddTransient<RoleManager<role>, RoleManager<role>>();

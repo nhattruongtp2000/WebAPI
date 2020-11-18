@@ -13,21 +13,19 @@ namespace WebAPI.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class ProductsController : ControllerBase
     {
-        private readonly IPublicProductService _publicProductService;
-        private readonly IManageProductService _manageProductService;
-        public ProductsController(IPublicProductService publicProductService, IManageProductService manageProductService)
+        private readonly IProductService _productService;
+        public ProductsController(IProductService productService)
         {
-            _publicProductService = publicProductService;
-            _manageProductService = manageProductService;
+            _productService = productService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetPublicProductPagingRequest request)
         {
-            var products = await _publicProductService.GetAllByCategoryId( request);
+            var products = await _productService.GetAllByCategoryId( request);
             return Ok(products);
         }
 
@@ -35,7 +33,7 @@ namespace WebAPI.BackendAPI.Controllers
         [HttpGet("{idProduct}" )]
         public async Task<IActionResult> GetById(int idProduct)
         {
-            var product = await _manageProductService.GetById(idProduct);
+            var product = await _productService.GetById(idProduct);
             if (product == null)
                 return BadRequest("Cannot find product");
             return Ok(product);
@@ -50,11 +48,11 @@ namespace WebAPI.BackendAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var productId = await _manageProductService.Create(request);
+            var productId = await _productService.Create(request);
             if (productId == 0)
                 return BadRequest();
 
-            var product = await _manageProductService.GetById(productId);
+            var product = await _productService.GetById(productId);
 
             return CreatedAtAction(nameof(GetById), new { id = productId }, product);
         }
@@ -68,7 +66,7 @@ namespace WebAPI.BackendAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var affectedResult = await _manageProductService.Update(request);
+            var affectedResult = await _productService.Update(request);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -79,7 +77,7 @@ namespace WebAPI.BackendAPI.Controllers
         [HttpDelete("{idProduct}")]
         public async Task<IActionResult> Delete(int idProduct)
         {
-            var affectedResult = await _manageProductService.Delete(idProduct);
+            var affectedResult = await _productService.Delete(idProduct);
             if (affectedResult == 0)
                 return BadRequest();
             return Ok();
@@ -89,7 +87,7 @@ namespace WebAPI.BackendAPI.Controllers
         [HttpPatch("{idProduct}/{newPrice}")]
         public async Task<IActionResult> UpdatePrice(int idProduct, decimal newPrice)
         {
-            var isSuccessful = await _manageProductService.UpdatePrice(idProduct, newPrice);
+            var isSuccessful = await _productService.UpdatePrice(idProduct, newPrice);
             if (isSuccessful)
                 return Ok();
 
@@ -104,11 +102,11 @@ namespace WebAPI.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var imageId = await _manageProductService.AddImage(productId, request);
+            var imageId = await _productService.AddImage(productId, request);
             if (imageId == 0)
                 return BadRequest();
 
-            var image = await _manageProductService.GetImageById(imageId);
+            var image = await _productService.GetImageById(imageId);
 
             return CreatedAtAction(nameof(GetImageById), new { id = imageId }, image);
         }
@@ -121,7 +119,7 @@ namespace WebAPI.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _manageProductService.UpdateImage(imageId, request);
+            var result = await _productService.UpdateImage(imageId, request);
             if (result == 0)
                 return BadRequest();
 
@@ -136,7 +134,7 @@ namespace WebAPI.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _manageProductService.RemoveImage(imageId);
+            var result = await _productService.RemoveImage(imageId);
             if (result == 0)
                 return BadRequest();
 
@@ -146,7 +144,7 @@ namespace WebAPI.BackendAPI.Controllers
         [HttpGet("{idProduct}/images/{imageId}")]
         public async Task<IActionResult> GetImageById(int idProduct, int imageId)
         {
-            var image = await _manageProductService.GetImageById(imageId);
+            var image = await _productService.GetImageById(imageId);
             if (image == null)
                 return BadRequest("Cannot find product");
             return Ok(image);
