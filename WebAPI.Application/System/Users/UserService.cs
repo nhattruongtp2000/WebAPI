@@ -76,7 +76,8 @@ namespace WebAPI.Application.System.Users
                 FirstName = user.firstName,
                 birthday = user.birthday,
                 Id = user.Id,
-                LastName = user.lastName
+                LastName = user.lastName,
+                UserName = user.UserName
             };
             return new ApiSuccessResult<UserVm>(userVm);
         }
@@ -129,7 +130,9 @@ namespace WebAPI.Application.System.Users
             //4. Select and projection
             var pagedResult = new PagedResult<UserVm>()
             {
-                TotalRecord = totalRow,
+                TotalRecords = totalRow,
+                PageIndex=request.PageIndex,
+                PageSize=request.PageSize,
                 Items = data
             };
             return new ApiSuccessResult<PagedResult<UserVm>>(pagedResult);
