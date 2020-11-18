@@ -10,7 +10,7 @@ using WebAPI.Data.EF;
 namespace WebAPI.Data.Migrations
 {
     [DbContext(typeof(WebApiDbContext))]
-    [Migration("20201116191155_initial")]
+    [Migration("20201117084543_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -552,7 +552,7 @@ namespace WebAPI.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "b582349b-2c82-43a9-bc09-9e26b326ca20",
+                            ConcurrencyStamp = "febbde93-f100-4feb-b11a-09b395aa913e",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -640,13 +640,13 @@ namespace WebAPI.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ad61b68-878e-4e26-8ad1-5795597fc38b",
+                            ConcurrencyStamp = "c7590047-68fb-41af-969f-22c551907538",
                             Email = "nhattruongtp2000@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "nhattruongtp2000@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAELLXh7ZsSWu54TFsSsKP0TadfZ57+Enaw5vprTBafi2l5mytAV5Z1gWirFPzOK2V7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM0n/SIniTrNIuLhfZfvOim9cW4KTvS0hgRzd5/M13nkGGDaLjuwtefz5UsLjEAQQA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
